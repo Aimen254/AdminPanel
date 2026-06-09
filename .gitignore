@@ -33,8 +33,7 @@ Thumbs.db
 
 # Artisan cache files contain absolute server paths — do NOT commit these.
 # They are generated automatically at runtime or via artisan cache:* commands.
-/bootstrap/cache/config.php
-/bootstrap/cache/routes-v7.php
+
 /bootstrap/cache/events.php
 /bootstrap/cache/compiled.php
 
