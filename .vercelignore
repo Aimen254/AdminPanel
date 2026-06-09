@@ -3,8 +3,13 @@
 .env.backup
 .env.production
 
-# JS tooling — not needed on server
+# JS tooling — not needed on server (excluding prevents vercel-php from running npm build)
 node_modules
+package.json
+package-lock.json
+vite.config.js
+resources/sass
+resources/js
 
 # Local runtime files — regenerated at startup
 storage/logs/*
