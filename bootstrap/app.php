@@ -21,9 +21,10 @@ $app = Application::configure(basePath: dirname(__DIR__))
         //
     })->create();
 
-// On Vercel serverless, the filesystem is read-only.
-// Redirect all writable storage operations to /tmp.
-if (isset($_ENV['VERCEL']) || isset($_SERVER['VERCEL'])) {
+// If the default storage path is not writable (read-only filesystem like Vercel),
+// redirect all storage operations to /tmp which is always writable.
+$defaultStorage = dirname(__DIR__) . '/storage';
+if (!is_writable($defaultStorage) || !is_writable($defaultStorage . '/framework')) {
     $app->useStoragePath('/tmp/laravel/storage');
 }
 
