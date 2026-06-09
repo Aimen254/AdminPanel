@@ -1,0 +1,50 @@
+# ── Secrets ───────────────────────────────────────────────────────────────────
+.env
+.env.backup
+.env.production
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+/.phpactor.json
+/auth.json
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+/.phpunit.cache
+/.phpunit.result.cache
+
+# ── Node.js ───────────────────────────────────────────────────────────────────
+/node_modules
+
+# ── Laravel generated/local-only ──────────────────────────────────────────────
+*.log
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
+
+# Artisan cache files contain absolute server paths — do NOT commit these.
+# They are generated automatically at runtime or via artisan cache:* commands.
+/bootstrap/cache/config.php
+/bootstrap/cache/routes-v7.php
+/bootstrap/cache/events.php
+/bootstrap/cache/compiled.php
+
+# ── Vagrant ───────────────────────────────────────────────────────────────────
+Homestead.json
+Homestead.yaml
+
+# ─────────────────────────────────────────────────────────────────────────────
+# NOTE: /vendor is intentionally NOT excluded.
+# Vercel's build environment does not have PHP or Composer, so vendor/ must
+# be committed for GitHub → Vercel deployments to work.
+# Run: composer install --no-dev --optimize-autoloader  before committing.
+# ─────────────────────────────────────────────────────────────────────────────

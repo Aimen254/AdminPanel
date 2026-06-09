@@ -1,0 +1,33 @@
+# Secrets — never deploy
+.env
+.env.backup
+.env.production
+
+# JS tooling — not needed on server
+node_modules
+
+# Local runtime files — regenerated at startup
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+public/hot
+public/storage
+
+# Test suite
+tests
+.phpunit.cache
+.phpunit.result.cache
+
+# Local IDE / OS noise
+.DS_Store
+Thumbs.db
+.fleet
+.idea
+.nova
+.vscode
+.zed
+
+# Vagrant
+Homestead.json
+Homestead.yaml
