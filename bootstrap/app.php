@@ -21,10 +21,9 @@ $app = Application::configure(basePath: dirname(__DIR__))
         //
     })->create();
 
-// If the default storage path is not writable (read-only filesystem like Vercel),
-// redirect all storage operations to /tmp which is always writable.
-$defaultStorage = dirname(__DIR__) . '/storage';
-if (!is_writable($defaultStorage) || !is_writable($defaultStorage . '/framework')) {
+// Vercel Lambda deploys to /var/task which is read-only (is_writable() lies on SquashFS).
+// Detect Vercel via deployment path or VERCEL env var and redirect storage to writable /tmp.
+if (str_starts_with(__DIR__, '/var/task') || (bool) getenv('VERCEL')) {
     $app->useStoragePath('/tmp/laravel/storage');
 }
 
