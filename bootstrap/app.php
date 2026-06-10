@@ -22,9 +22,24 @@ $app = Application::configure(basePath: dirname(__DIR__))
     })->create();
 
 // Vercel Lambda deploys to /var/task which is read-only (is_writable() lies on SquashFS).
-// Detect Vercel via deployment path or VERCEL env var and redirect storage to writable /tmp.
+// Redirect storage AND bootstrap cache files to writable /tmp paths.
+// Without this, ProviderRepository::writeManifest() fails writing services.php, which
+// triggers an ErrorException (E_WARNING from file_put_contents) before ViewServiceProvider
+// can register — causing the cascading "Target class [view] does not exist" error.
 if (str_starts_with(__DIR__, '/var/task') || (bool) getenv('VERCEL')) {
     $app->useStoragePath('/tmp/laravel/storage');
+
+    // Point all bootstrap cache writes to /tmp so they succeed on the read-only filesystem.
+    foreach ([
+        'APP_SERVICES_CACHE' => '/tmp/laravel/bootstrap/cache/services.php',
+        'APP_PACKAGES_CACHE' => '/tmp/laravel/bootstrap/cache/packages.php',
+        'APP_CONFIG_CACHE'   => '/tmp/laravel/bootstrap/cache/config.php',
+        'APP_ROUTES_CACHE'   => '/tmp/laravel/bootstrap/cache/routes-v7.php',
+        'APP_EVENTS_CACHE'   => '/tmp/laravel/bootstrap/cache/events.php',
+    ] as $key => $path) {
+        putenv("{$key}={$path}");
+        $_ENV[$key] = $_SERVER[$key] = $path;
+    }
 }
 
 return $app;
